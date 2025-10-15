@@ -1,0 +1,41 @@
+using System;
+
+namespace InterfaceInheritance
+{
+    interface IEmployee
+    {
+        void EmpDisplayDetails();
+    }
+
+    interface IManager : IEmployee
+    {
+        void ManageDetails();
+    }
+
+    class DepartmentDetails : IManager
+    {
+        void IEmployee.EmpDisplayDetails()
+        {
+            Console.WriteLine("Employee details:");
+        }
+
+        void IManager.ManageDetails()
+        {
+            Console.WriteLine("Manager is working in sales department.");
+        }
+    }
+
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            DepartmentDetails d = new DepartmentDetails();
+
+            IEmployee emp = d;
+            emp.EmpDisplayDetails();
+
+            IManager mgr = d;
+            mgr.ManageDetails();
+        }
+    }
+}
