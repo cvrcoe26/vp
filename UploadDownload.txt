@@ -1,0 +1,85 @@
+Form1.cs
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace up_and_down
+{
+    public partial class Form1 : Form
+    {
+        WebClient client = new WebClient();
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string uploadUrl = textBox1.Text.Trim();
+                if (string.IsNullOrEmpty(uploadUrl))
+                {
+                    label1.Text = "Please enter an upload URL";
+                    return;
+                }
+
+                // Example: Upload a local file
+                string localFile = @"C:\Users\Public\Downloads\example.txt";
+                client.UploadFile(uploadUrl, localFile);
+
+                label1.Text = "File uploaded successfully!";
+                MessageBox.Show("Upload completed!");
+            }
+            catch (Exception ex)
+            {
+                label1.Text = "Upload Error: " + ex.Message;
+            }
+        }
+
+        private void buttonDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = textBox1.Text.Trim();
+                if (string.IsNullOrEmpty(url))
+                {
+                    label1.Text = "Please enter a download URL";
+                    return;
+                }
+
+                // Save path (you can customize the filename and folder)
+                string savePath = @"C:\Users\Public\Downloads\" + System.IO.Path.GetFileName(url);
+
+                client.DownloadFile(url, savePath);
+
+                label1.Text = "File downloaded to: " + savePath;
+                MessageBox.Show("File downloaded successfully!");
+            }
+            catch (Exception ex)
+            {
+                label1.Text = "Download Error: " + ex.Message;
+            }
+        }
+
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            // Optional: code to run when label is clicked
+        }
+
+    }
+}
