@@ -1,8 +1,100 @@
+Steps to Create the Project
+1. Open Visual Studio 2022 → Create a new project.
+2. Select ASP.NET Web Application (.NET Framework) → Next.
+    o If not found → Install via Workloads: ASP.NET and web development, .NET 4.8 SDK & Targeting Packs.
+3. Project Name: TASK11Demo → Click Create.
+4. Choose Empty Template, check Web Forms → Click Create.
+
+Add Web Form Page
+1. Right-click project → Add → Web Form → Name: WebForm1.aspx → Click Add.
+
+Design the Form Using Drag & Drop
+Controls in Design View:
+1. Drag Label → Text: TO
+2. Drag TextBox → ID: TextBox1
+3. Drag Label → Text: SUBJECT
+4. Drag TextBox → ID: TextBox2
+5. Drag Label → Text: BODY
+6. Drag TextBox → ID: TextBox3, TextMode = MultiLine
+7. Drag Label → Text: STATUS, ID = Label4 → To display success/error
+8. Drag Button → ID: Button1, Text: SEND, OnClick: Button1_Click
+
+
+Web Form Code (WebForm1.aspx)
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="TASK11Demo.WebForm1" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>Send Email Demo</title>
+<style>
+body { font-family: Arial; margin: 40px; }
+.form-control { margin: 10px 0; }
+</style>
+</head>
+<body>
+<form id="form1" runat="server">
+<div>
+<h2>Send Email</h2>
+<!-- TO -->
+<div class="form-control">
+<asp:Label ID="Label1" runat="server" Text="TO"></asp:Label>
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+</div>
+<!-- SUBJECT -->
+<div class="form-control">
+<asp:Label ID="Label2" runat="server" Text="SUBJECT"></asp:Label>
+<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+</div>
+<!-- BODY -->
+<div class="form-control">
+<asp:Label ID="Label3" runat="server" Text="BODY"></asp:Label>
+<asp:TextBox ID="TextBox3" runat="server" TextMode="MultiLine"></asp:TextBox>
+</div>
+<!-- STATUS -->
+<div class="form-control">
+<asp:Label ID="Label4" runat="server" Text="STATUS"></asp:Label>
+</div>
+<!-- SEND BUTTON -->
+<div class="form-control">
+<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="SEND" />
+</div>
+</div>
+</form>
+</body>
+</html>
+
+
+Code-behind (WebForm1.aspx.cs):
+using System;
 using System.Net.Mail;
-MailMessage mail = new MailMessage("from@example.com", "to@example.com");
-mail.Subject = "Test";
-mail.Body = "Hello from ASP.NET";
-SmtpClient client = new SmtpClient("smtp.example.com", 25);
-client.Credentials = new System.Net.NetworkCredential("user","pass");
-client.EnableSsl = true;
-client.Send(mail);
+
+namespace TASK11Demo {
+  public partial class WebForm1: System.Web.UI.Page {
+    protected void Page_Load(object sender, EventArgs e) {}
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+      try {
+        MailMessage mail = new MailMessage();
+        mail.To.Add(TextBox1.Text); // Recipient
+        mail.From = new MailAddress("youremail@domain.com"); // Replace with your email
+        mail.Subject = TextBox2.Text; // Subject
+        mail.Body = TextBox3.Text; // Body
+        SmtpClient smtp = new SmtpClient();
+        smtp.Host = "smtp.gmail.com"; // SMTP server
+        smtp.Port = 587; // SMTP port
+        smtp.Credentials = new System.Net.NetworkCredential("username", "password"); // Your credentials
+        smtp.EnableSsl = true;
+        smtp.Send(mail);
+        Label4.Text = "Email sent successfully!";
+      }
+      catch(Exception ex)
+      {
+        Label4.Text = "Error: " + ex.Message;
+      }
+    }
+  }
+}
+
+Run the Application
+Press F5 to start the website.
