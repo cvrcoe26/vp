@@ -1,0 +1,71 @@
+Open Visual Studio
+Go to File → New → Website
+Choose ASP.NET Web Site → Language: C#
+Name it EmployeeManagementSystem
+
+
+Add a Master Page
+Right-click the project → Add New Item → Master Page
+Name it Site.master
+Code for Site.master:
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Employee Management System</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="background-color:#2C3E50; color:white; padding:10px;">
+            <h1>Employee Management System</h1>
+            <a href="Home.aspx" style="color:white; margin-right:15px;">Home</a>
+            <a href="AddEmployee.aspx" style="color:white; margin-right:15px;">Add Employee</a>
+            <a href="ViewEmployee.aspx" style="color:white;">View Employees</a>
+        </div>
+        <div style="padding:20px;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <footer style="background:#eee; text-align:center; padding:10px;">
+            © 2025 Employee Management System
+        </footer>
+    </form>
+</body>
+</html>
+
+
+Add Content Pages:
+(a) Home Page
+Add → New Item → Web Form using Master Page → Name it Home.aspx
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>Welcome to Employee Management System</h2>
+    <p>This system helps you manage employee information easily.</p>
+</asp:Content>
+
+
+(b) Add Employee Page
+Add → New Item → Web Form using Master Page → Name it AddEmployee.aspx
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>Add Employee</h2>
+    <table>
+        <tr><td>Name:</td><td><asp:TextBox ID="txtName" runat="server" /></td></tr>
+        <tr><td>Department:</td><td><asp:TextBox ID="txtDept" runat="server" /></td></tr>
+        <tr><td>Salary:</td><td><asp:TextBox ID="txtSalary" runat="server" /></td></tr>
+        <tr><td colspan="2"><asp:Button ID="btnAdd" runat="server" Text="Add Employee" OnClick="btnAdd_Click" /></td></tr>
+    </table>
+    <asp:Label ID="lblMessage" runat="server" ForeColor="Green" />
+</asp:Content>
+
+AddEmployee.aspx.cs
+using System;
+public partial class AddEmployee : System.Web.UI.Page
+{
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        lblMessage.Text = "Employee Added: " + txtName.Text + " (" + txtDept.Text + ")";
+    }
+}
+
+
+Run the Website
+Press F5 or click Start ▶️
