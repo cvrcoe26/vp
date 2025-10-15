@@ -1,3 +1,65 @@
+Open Visual Studio → Create a new project → Choose
+“Windows Forms App (.NET Framework)” → Click Create.
+
+Design the Form
+
+Add:
+
+1 TextBox → Name: txtUrl → (for entering the file URL)
+
+1 Button → Name: btnDownload → Text: “Download”
+
+1 SaveFileDialog → Name: saveFileDialog1
+
+1 Label → Text: “Enter file URL:”
+
+Double-click the Download button to open the Click event.
+
+Write this simple C# code:
+using System;
+using System.Net;
+using System.Windows.Forms;
+
+namespace FileDownloader
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = txtUrl.Text;
+                if (string.IsNullOrEmpty(url))
+                {
+                    MessageBox.Show("Please enter a valid URL.");
+                    return;
+                }
+
+                saveFileDialog1.FileName = System.IO.Path.GetFileName(url);
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.DownloadFile(url, saveFileDialog1.FileName);
+                        MessageBox.Show("Download completed!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+    }
+}
+
+
+--------------------------------------------------- if above not worked ---------------
 // In a WinForms Button click event
 using System.Net.Http;
 using System.IO;
