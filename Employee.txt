@@ -1,42 +1,40 @@
 using System;
 
-public class Employee
+class Employee
 {
-    public string Name { get; set; }
-    public int EmployeeID { get; set; }
-    public double Salary { get; set; }
+    public string name;
+    public int employeeID;
+    public double salary;
 
-    public virtual void CalculateSalary() {}
+    public virtual void CalculateSalary() { }
 
-    public virtual void Display()
+    public void Display()
     {
-        Console.WriteLine($"Name: {Name}");
-        Console.WriteLine($"Employee ID: {EmployeeID}");
-        Console.WriteLine($"Salary: {Salary}");
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Employee ID: " + employeeID);
+        Console.WriteLine("Salary: " + salary);
     }
 }
 
-public class FullTimeEmployee : Employee
+class FullTimeEmployee : Employee
 {
-    public double BasicSalary { get; set; }
-    public int NumberOfDays { get; set; }
-    public double HRA { get; set; }
-    public double DA { get; set; }
+    public double basicSalary, HRA, DA;
+    public int numberOfDays;
 
     public override void CalculateSalary()
     {
-        Salary = (BasicSalary * NumberOfDays) + HRA + DA;
+        salary = (basicSalary * numberOfDays) + HRA + DA;
     }
 }
 
-public class PartTimeEmployee : Employee
+class PartTimeEmployee : Employee
 {
-    public double DailyWages { get; set; }
-    public int NumberOfDays { get; set; }
+    public double dailyWages;
+    public int numberOfDays;
 
     public override void CalculateSalary()
     {
-        Salary = DailyWages * NumberOfDays;
+        salary = dailyWages * numberOfDays;
     }
 }
 
@@ -44,32 +42,24 @@ class Program
 {
     static void Main()
     {
-        FullTimeEmployee fte = new FullTimeEmployee
-        {
-            Name = "John",
-            EmployeeID = 10001,
-            BasicSalary = 500,
-            NumberOfDays = 20,
-            HRA = 1500,
-            DA = 900
-        };
+        // Full-time employee example
+        FullTimeEmployee fte = new FullTimeEmployee();
+        fte.name = "John";
+        fte.employeeID = 101;
+        fte.basicSalary = 500;
+        fte.HRA = 2000;
+        fte.DA = 1500;
+        fte.numberOfDays = 20;
         fte.CalculateSalary();
-        Console.WriteLine("Full Time Employee Details:");
         fte.Display();
-        
-        Console.WriteLine();
 
-        PartTimeEmployee pte = new PartTimeEmployee
-        {
-            Name = "Jane",
-            EmployeeID = 20002,
-            DailyWages = 300,
-            NumberOfDays = 15
-        };
+        // Part-time employee example
+        PartTimeEmployee pte = new PartTimeEmployee();
+        pte.name = "Alice";
+        pte.employeeID = 102;
+        pte.dailyWages = 300;
+        pte.numberOfDays = 15;
         pte.CalculateSalary();
-        Console.WriteLine("Part Time Employee Details:");
         pte.Display();
-
-        Console.ReadLine();
     }
 }
