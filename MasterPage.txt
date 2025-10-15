@@ -23,3 +23,36 @@ webform:
     <h2>Welcome to ABC College</h2>
     <p>Details of courses, campus, and faculty here.</p>
 </asp:Content>
+
+
+
+---------------- gpt -------------------
+Open Visual Studio → Create a new ASP.NET Web Application (.NET Framework) project.
+
+Select Web Forms template → Click Create.
+
+Add a Master Page
+
+Right-click project → Add → New Item → Master Page → Name it Site.master.
+
+Design header, menu, and footer.
+
+Add a <asp:ContentPlaceHolder> where content pages will appear.
+
+Add a Content Page
+
+Right-click project → Add → New Item → Web Form using Master Page → Name it College.aspx.
+
+Select Site.master as the master page.
+
+In College.aspx, inside the content area, add some college details — for example:
+
+<h2>College Information</h2>
+<p>Name: ABC College</p>
+<p>Location: Hyderabad</p>
+<p>Established: 1998</p>
+
+
+Run the project (F5) → The page will display inside the master page layout (with header/footer).
+
+(Optional) Add more pages (like Departments, Courses, Contact Us) using the same master page.
