@@ -1,29 +1,47 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="CollegeInfoApp.Registration" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Registration Form</h2>
+
+        Name: <asp:TextBox ID="txtName" runat="server"></asp:TextBox><br /><br />
+        Email: <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox><br /><br />
+        Password: <asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox><br /><br />
+
+        <asp:Button ID="btnSubmit" Text="Submit" runat="server" OnClick="btnSubmit_Click" /><br /><br />
+
+        <asp:Label ID="lblDisplay" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+
 using System;
-using System.Text.RegularExpressions;
 
-namespace EmailValidation
+namespace CollegeInfoApp
 {
-    class Program
+    public partial class Registration : System.Web.UI.Page
     {
-        static void Main(string[] args)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            Console.Write("Enter your email address: ");
-            string email = Console.ReadLine();
+        }
 
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            Regex regex = new Regex(pattern);
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text;
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
 
-            if (regex.IsMatch(email))
-            {
-                Console.WriteLine("The entered email is in a proper format.");
-            }
-            else
-            {
-                Console.WriteLine("The entered email is NOT in a proper format.");
-            }
-
-            Console.WriteLine("\nPress any key to exit...");
-            Console.ReadKey();
+            // Display entered data
+            lblDisplay.Text = "You entered:<br/>" +
+                              "Name: " + name + "<br/>" +
+                              "Email: " + email + "<br/>" +
+                              "Password: " + password;
         }
     }
 }
