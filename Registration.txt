@@ -1,3 +1,7 @@
+Open Visual Studio → Create ASP.NET Web Application (.NET Framework) → Choose Web Forms → Click Create.
+
+Add a new Web Form → Name it Registration.aspx.
+
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="CollegeInfoApp.Registration" %>
 
 <!DOCTYPE html>
