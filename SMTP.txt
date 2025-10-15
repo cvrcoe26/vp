@@ -1,0 +1,8 @@
+using System.Net.Mail;
+MailMessage mail = new MailMessage("from@example.com", "to@example.com");
+mail.Subject = "Test";
+mail.Body = "Hello from ASP.NET";
+SmtpClient client = new SmtpClient("smtp.example.com", 25);
+client.Credentials = new System.Net.NetworkCredential("user","pass");
+client.EnableSsl = true;
+client.Send(mail);
