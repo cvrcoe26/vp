@@ -1,30 +1,63 @@
-namespace math
-{
-    public class Class1
-    {
-        public int Add(int a, int b) => a + b;
-    }
-}
-using System;
-using math;
+Open Visual Studio → File → New → Project → Select
+Class Library (.NET Framework) → Name it MyMathLibrary.
 
-namespace UseMathLibrary
+In Class1.cs, replace the code with:
+
+using System;
+
+namespace MyMathLibrary
+{
+    public class MathOperations
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        public int Sub(int a, int b)
+        {
+            return a - b;
+        }
+    }
+}
+
+Click Build → Build Solution
+The .dll file will be generated in the project folder:
+MyMathLibrary\bin\Debug\MyMathLibrary.dll
+
+Create Console Application
+1. Open Visual Studio → Create new project → Console App (.NET Framework).
+2. Name it: MathApp → Click Create.
+
+Add Reference to the DLL
+
+Right-click the project → Add Reference… → Click Browse →
+Select MyMathLibrary.dll from the bin\Debug folder → Click OK.
+
+Write Code in Console App (Program.cs)
+using System;
+using MyMathLibrary;
+
+namespace UseMyMathLibrary
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Class1 calc = new Class1();
+            MathOperations obj = new MathOperations();
 
             Console.Write("Enter first number: ");
-            int a = int.Parse(Console.ReadLine());
+            int a = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Enter second number: ");
-            int b = int.Parse(Console.ReadLine());
-            Console.WriteLine("Addition: " + calc.Add(a, b));
+            int b = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("\nPress any key to exit...");
-            Console.ReadKey();
+            Console.WriteLine("Addition = " + obj.Add(a, b));
+            Console.WriteLine("Subtraction = " + obj.Sub(a, b));
+
+            Console.ReadLine();
         }
     }
 }
+
+Run the console app / press F5
