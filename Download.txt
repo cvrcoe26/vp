@@ -1,0 +1,13 @@
+// In a WinForms Button click event
+using System.Net.Http;
+using System.IO;
+private async void btnDownload_Click(object sender, EventArgs e) {
+ using (HttpClient client = new HttpClient()) {
+ string url = txtUrl.Text;
+ byte[] data = await client.GetByteArrayAsync(url);
+ File.WriteAllBytes(@"C:\temp\downloaded.file", data);
+ MessageBox.Show("Downloaded");
+ }
+}
+Sample Input: URL=https://example.com/file.txt
+Sample Output: File saved to C:\temp\downloaded.file
