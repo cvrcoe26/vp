@@ -1,3 +1,12 @@
+pen Visual Studio
+→ Click File → New → Project.
+→ Select Console App (.NET Framework) → Click Next.
+→ Name it EmailValidationApp → Click Create.
+
+Open the Program.cs file.
+Copy and paste the following:
+
+
 using System;
 using System.Text.RegularExpressions;
 
@@ -27,3 +36,7 @@ namespace EmailValidation
         }
     }
 }
+
+
+Save the file → Press Ctrl + S.
+Run the program
