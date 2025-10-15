@@ -1,0 +1,83 @@
+Create a table with given fields
+
+EmpNo Number
+EmpName Varchar
+EmpSal Number
+EmpJob Varchar
+EmpDeptNo Number
+
+For the given table design a web page to display the employee information from table to grid control. Use LINQ to ADO.NET
+
+Create the Database Table:
+      o In SQL Server, run the following SQL to create a table:
+
+CREATE TABLE Employees (
+EmpNo INT PRIMARY KEY,
+EmpName VARCHAR(50),
+EmpSal DECIMAL(10, 2),
+EmpJob VARCHAR(50),
+EmpDeptNo INT
+);
+
+Step 1: Create Project
+1. Open Visual Studio 2022
+2. Select ASP.NET Web Application (.NET Framework)
+3. Name it: EmployeeInfoApp
+4. Choose Empty template and check Web Forms.
+
+Step 2: Add Web Form
+1. Right-click your project → Add → Web Form
+      o Name: EmployeeDisplay.aspx
+
+Step 3: Create Database Connection
+2. In Solution Explorer → Add → New Item → Data → LINQ to SQL Classes
+      o Name it: EmployeeData.dbml
+3. This opens a LINQ to SQL Designer.
+4. From Server Explorer → Data ConnecƟons, add connection
+   SERVER NAME =.\SQLEXPRESS
+
+ Connection need to be established with back end.
+ Open new query and Create the table Employee with required columns
+
+ 5. drag the Employee table to the designer.
+      o It automatically creates a class named Employee.
+
+Step 4: Design the Web Form (Front-End)
+Open EmployeeDisplay.aspx, and add this code inside the <form> tag:
+
+<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="True"
+ </asp:GridView>
+
+Step 5: Backend Code (C#)
+Open EmployeeDisplay.aspx.cs and write this:
+
+using System;
+using System.Linq;
+using System.Configuration;
+namespace EmployeeInfoApp {
+  public partial class EmployeeDisplay: System.Web.UI.Page {
+    protected void Page_Load(object sender, EventArgs e) {
+      if (!IsPostBack) {
+        ShowEmployeeData();
+      }
+    }
+    private void ShowEmployeeData() {
+      // Create data context
+      string connString = ConfigurationManager.ConnectionStrings["DataSourceConnectionString"].ConnectionStri
+      ng;
+      // Create data context
+      empDataContext db = new empDataContext(connString);
+      // LINQ Query to select employee details
+      var empDetails = from emp in db.Employees
+      select emp;
+      // Bind to GridView
+      GridView1.DataSource = empDetails;
+      GridView1.DataBind();
+    }
+  }
+}
+
+Step 6: Run the Application
+    => Press F5 or Ctrl+F5
+    => The EmployeeDisplay.aspx page will open
+    => The GridView will show employee data from the database
