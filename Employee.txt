@@ -1,0 +1,75 @@
+using System;
+
+public class Employee
+{
+    public string Name { get; set; }
+    public int EmployeeID { get; set; }
+    public double Salary { get; set; }
+
+    public virtual void CalculateSalary() {}
+
+    public virtual void Display()
+    {
+        Console.WriteLine($"Name: {Name}");
+        Console.WriteLine($"Employee ID: {EmployeeID}");
+        Console.WriteLine($"Salary: {Salary}");
+    }
+}
+
+public class FullTimeEmployee : Employee
+{
+    public double BasicSalary { get; set; }
+    public int NumberOfDays { get; set; }
+    public double HRA { get; set; }
+    public double DA { get; set; }
+
+    public override void CalculateSalary()
+    {
+        Salary = (BasicSalary * NumberOfDays) + HRA + DA;
+    }
+}
+
+public class PartTimeEmployee : Employee
+{
+    public double DailyWages { get; set; }
+    public int NumberOfDays { get; set; }
+
+    public override void CalculateSalary()
+    {
+        Salary = DailyWages * NumberOfDays;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        FullTimeEmployee fte = new FullTimeEmployee
+        {
+            Name = "John",
+            EmployeeID = 10001,
+            BasicSalary = 500,
+            NumberOfDays = 20,
+            HRA = 1500,
+            DA = 900
+        };
+        fte.CalculateSalary();
+        Console.WriteLine("Full Time Employee Details:");
+        fte.Display();
+        
+        Console.WriteLine();
+
+        PartTimeEmployee pte = new PartTimeEmployee
+        {
+            Name = "Jane",
+            EmployeeID = 20002,
+            DailyWages = 300,
+            NumberOfDays = 15
+        };
+        pte.CalculateSalary();
+        Console.WriteLine("Part Time Employee Details:");
+        pte.Display();
+
+        Console.ReadLine();
+    }
+}
