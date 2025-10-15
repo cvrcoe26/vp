@@ -1,0 +1,30 @@
+namespace math
+{
+    public class Class1
+    {
+        public int Add(int a, int b) => a + b;
+    }
+}
+using System;
+using math;
+
+namespace UseMathLibrary
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 calc = new Class1();
+
+            Console.Write("Enter first number: ");
+            int a = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter second number: ");
+            int b = int.Parse(Console.ReadLine());
+            Console.WriteLine("Addition: " + calc.Add(a, b));
+
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+    }
+}
