@@ -1,0 +1,25 @@
+•	Create a new ASP.NET Web Application (.NET Framework) project, name it (e.g., CollegeInfoApp).
+•	Add a Master Page: right-click project → Add → New Item → Web Forms Master Page (Site.master).
+•	Add Content Page: right-click project → Add → Web Form → select master page.
+
+sitemaster:
+<%@ Master Language="C#" %>
+<html>
+<head>
+    <title>My College</title>
+</head>
+<body>
+    <form runat="server">
+        <h1>ABC College Information</h1>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </form>
+</body>
+</html>
+
+webform:
+
+<%@ Page Title="College Info" MasterPageFile="~/Site1.master" Language="C#" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>Welcome to ABC College</h2>
+    <p>Details of courses, campus, and faculty here.</p>
+</asp:Content>
