@@ -1,23 +1,38 @@
 using System;
-interface IFirst {
-  void Show();
+
+interface IFirst
+{
+    void ShowFirst();
 }
-interface ISecond {
-  void Show();
+
+interface ISecond : IFirst
+{
+    void ShowSecond();
 }
-class Demo: IFirst,
-ISecond {
-  void IFirst.Show() {
-    Console.WriteLine("IFirst Show");
-  }
-  void ISecond.Show() {
-    Console.WriteLine("ISecond Show");
-  }
+
+class Demo : ISecond
+{
+    void IFirst.ShowFirst()
+    {
+        Console.WriteLine("IFirst Show");
+    }
+
+    void ISecond.ShowSecond()
+    {
+        Console.WriteLine("ISecond Show");
+    }
 }
-class Program {
-  static void Main() {
-    Demo d = new Demo();
-    ((IFirst) d).Show();
-    ((ISecond) d).Show();
-  }
+
+class Program
+{
+    static void Main()
+    {
+        Demo d = new Demo();
+
+        IFirst f = d;
+        f.ShowFirst();
+
+        ISecond s = d;
+        s.ShowSecond();
+    }
 }
