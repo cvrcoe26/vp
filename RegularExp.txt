@@ -10,8 +10,7 @@ Copy and paste the following:
 using System;
 using System.Text.RegularExpressions;
 
-namespace EmailValidation
-{
+
     class Program
     {
         static void Main(string[] args)
@@ -19,7 +18,7 @@ namespace EmailValidation
             Console.Write("Enter your email address: ");
             string email = Console.ReadLine();
 
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             Regex regex = new Regex(pattern);
 
             if (regex.IsMatch(email))
@@ -30,12 +29,9 @@ namespace EmailValidation
             {
                 Console.WriteLine("The entered email is NOT in a proper format.");
             }
-
-            Console.WriteLine("\nPress any key to exit...");
-            Console.ReadKey();
         }
     }
-}
+
 
 
 Save the file → Press Ctrl + S.
