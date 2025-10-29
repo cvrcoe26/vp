@@ -5,60 +5,36 @@ Design the Form
 
 Add:
 
-1 TextBox → Name: txtUrl → (for entering the file URL)
+1 TextBox → give id: txtUrl → (for entering the file URL)
 
-1 Button → Name: btnDownload → Text: “Download”
-
-1 SaveFileDialog → Name: saveFileDialog1
+1 Button → Text: “Download”
 
 1 Label → Text: “Enter file URL:”
 
-Double-click the Download button to open the Click event.
-
-Write this simple C# code:
-using System;
-using System.Net;
-using System.Windows.Forms;
-
-namespace FileDownloader
-{
-    public partial class Form1 : Form
-    {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+Double-click the Download button to open the Click event, and paste the below code inside the btnDownload_Click function:
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
             try
             {
-                string url = txtUrl.Text;
-                if (string.IsNullOrEmpty(url))
-                {
-                    MessageBox.Show("Please enter a valid URL.");
-                    return;
-                }
-
-                saveFileDialog1.FileName = System.IO.Path.GetFileName(url);
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        client.DownloadFile(url, saveFileDialog1.FileName);
-                        MessageBox.Show("Download completed!");
-                    }
-                }
+                string url = textUrl.Text;
+                string savePath = @"C:\Users\CVR\Downloads\vp" + System.IO.Path.GetFileName(url);
+                using (WebClient client = new WebClient())
+                 {
+                     client.DownloadFile(url, savePath);
+                     Label1.Text = @"file uploaded to " + savePath;
+                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+               Label1.Text = "Error downloading file";
             }
         }
-    }
-}
 
 
+after running the code:
+=> give exact location of a file (example:  C:\Users\CVR\Downloads\hi.jpg)
+=> on clicking the download button, a new file vphi.jpg will be created in the downloads folder
 --------------------------------------------------- if above not worked ---------------
 // In a WinForms Button click event
 using System.Net.Http;
